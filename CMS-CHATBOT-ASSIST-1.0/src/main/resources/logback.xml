@@ -1,0 +1,100 @@
+<configuration debug="true">
+    <property name="LOG_FILE" value="C://CMS//API" />
+     <appender name="STDOUT"
+        class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} |%-4relative | [%thread] | %-5level
+                |%logger{35} |%msg%n |%rEx</pattern>
+        </encoder>
+    </appender>
+ 
+    <appender name="ChatBotAssistInfo"
+        class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_FILE}/ChatBotAssist/ChatBotAssistInfo.log</file>
+        <rollingPolicy
+            class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>${LOG_FILE}/ChatBotAssist/Info.%i.log.zip
+            </fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>100</maxIndex>
+        </rollingPolicy>
+        <triggeringPolicy
+            class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>5MB</maxFileSize>
+        </triggeringPolicy>
+        <encoder>
+            <pattern> %X{RemoteAddress} %d{dd:MM:yyyy} %d{HH:mm:ss.SSS} [%-5p]
+                [%C - %M : %L] - %m%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+ 
+    <appender name="ChatBotAssistDebug"
+        class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_FILE}/ChatBotAssist/ChatBotAssistDebug.log</file>
+        <rollingPolicy
+            class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>${LOG_FILE}/ChatBotAssist/ChatBotAssistDebug.%i.log.zip
+            </fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>100</maxIndex>
+        </rollingPolicy>
+        <triggeringPolicy
+            class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>5MB</maxFileSize>
+        </triggeringPolicy>
+        <encoder>
+            <pattern> %X{RemoteAddress} %d{dd:MM:yyyy} %d{HH:mm:ss.SSS} [%-5p]
+                [%C - %M : %L] - %m%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>DEBUG</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+     <appender name="ChatBotAssistError"
+        class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_FILE}/ChatBotAssist/ChatBotAssistError.log</file>
+        <rollingPolicy
+            class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>${LOG_FILE}/ChatBotAssist/ChatBotAssistError.%i.log.zip
+            </fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>100</maxIndex>
+        </rollingPolicy>
+        <triggeringPolicy
+            class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>5MB</maxFileSize>
+        </triggeringPolicy>
+        <encoder>
+            <pattern> %X{RemoteAddress} %d{dd:MM:yyyy} %d{HH:mm:ss.SSS} [%-5p]
+                [%C - %M : %L] - %m%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+   
+     <logger name="com.fss.cms.chatbot.assist.prototype" level="error"
+        additivity="false">
+        <appender-ref ref="ChatBotAssistError" />
+    </logger>
+     <logger name="com.fss.cms.chatbot.assist.prototype" level="info"
+        additivity="false">
+        <appender-ref ref="ChatBotAssistInfo" />
+    </logger>
+     <logger name="com.fss.cms.chatbot.assist.prototype" level="debug"
+        additivity="false">
+        <appender-ref ref="ChatBotAssistDebug" />
+    </logger>
+      <root level="debug">
+        <appender-ref ref="STDOUT" />
+    </root>
+</configuration>
